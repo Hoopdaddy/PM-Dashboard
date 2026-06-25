@@ -724,29 +724,7 @@
       </aside>
     </div>
 
-    <section class="tools" aria-label="Connected tools">
-      <article class="tool-card">
-        <div>
-          <h4><span class="status"></span>Customer Journey Analyzer</h4>
-          <p>Recent analyses, pain points, abandonment insights, and friction summaries.</p>
-        </div>
-        <a class="button" href="https://customerjourney.cardboardmania.com">Launch Tool</a>
-      </article>
-      <article class="tool-card">
-        <div>
-          <h4><span class="status"></span>Retail Competitive Intelligence</h4>
-          <p>Competitor observations, feature gaps, pricing signals, and strategic recommendations.</p>
-        </div>
-        <a class="button" href="https://retailcomps.cardboardmania.com">Launch Tool</a>
-      </article>
-      <article class="tool-card">
-        <div>
-          <h4><span class="status"></span>CNC Sandbox</h4>
-          <p>Saved analyses, validation results, experiment findings, and merchandising tests.</p>
-        </div>
-        <a class="button" href="https://cncsandbox.cardboardmania.com">Launch Tool</a>
-      </article>
-    </section>
+    <section class="tools" id="connectedTools" aria-label="Connected tools"></section>
 
     <section class="dashboard-lower" aria-label="Planning workspace">
       <div class="side-stack">
@@ -767,12 +745,7 @@
 
       <section class="panel" aria-labelledby="activityTitle">
         <h3 id="activityTitle">Recent Activity</h3>
-        <div class="activity-list">
-          <div class="activity-item"><strong>8:40 AM</strong>Customer Journey Analyzer identified checkout navigation friction.</div>
-          <div class="activity-item"><strong>8:22 AM</strong>Retail Competitive Intelligence added competitor one-click checkout evidence.</div>
-          <div class="activity-item"><strong>Yesterday</strong>CNC Sandbox saved trailer accessory pricing experiment results.</div>
-          <div class="activity-item"><strong>Monday</strong>Value messaging theme appeared in two connected tools.</div>
-        </div>
+        <div class="activity-list" id="activityList"></div>
       </section>
     </section>
   </main>
@@ -807,65 +780,15 @@
     </div>
   </aside>
 
+  <script src="command-center-data.js"></script>
   <script>
-    const scoringWeights = {
-      businessImpact: 0.4,
-      confidence: 0.2,
-      recency: 0.15,
-      crossToolMatches: 0.15,
-      manualPriority: 0.1
-    };
-
-    const opportunities = [
-      {
-        id: "checkout-navigation",
-        title: "Improve Checkout Navigation",
-        source: "Customer Journey Analyzer",
-        evidence: "Retail Competitive Intelligence",
-        impact: "High",
-        confidenceLabel: "High",
-        context: "Checkout friction is appearing in customer path analysis and is reinforced by competitor experiences that reduce decision steps at the end of the buying journey.",
-        recommendation: "Review customer journey findings and compare with competitor checkout experiences.",
-        related: "Checkout abandonment, one-click checkout, prototype checkout improvement",
-        actions: ["Review journey findings", "Compare competitor checkout", "Create checkout improvement brief"],
-        inputs: { businessImpact: 98, confidence: 93, recency: 92, crossToolMatches: 96, manualPriority: 88 },
-        tags: ["checkout", "journey", "conversion"]
-      },
-      {
-        id: "trailer-accessories",
-        title: "Expand Trailer Accessories",
-        source: "Retail Competitive Intelligence",
-        evidence: "CNC Sandbox",
-        impact: "High",
-        confidenceLabel: "High",
-        context: "Competitor merchandising and sandbox pricing signals suggest accessory attach opportunities around trailer research and purchase intent.",
-        recommendation: "Review sandbox pricing experiments before prioritization.",
-        related: "Trailer accessory merchandising, pricing experiment, assortment expansion",
-        actions: ["Open pricing experiment", "Validate attach-rate hypothesis", "Draft merchandising test"],
-        inputs: { businessImpact: 94, confidence: 88, recency: 90, crossToolMatches: 90, manualPriority: 91 },
-        tags: ["trailer", "accessories", "pricing"]
-      },
-      {
-        id: "value-messaging",
-        title: "Strengthen Value Messaging",
-        source: "Retail Competitive Intelligence",
-        evidence: "Customer Journey Analyzer",
-        impact: "Medium",
-        confidenceLabel: "Medium",
-        context: "Competitor pricing observations and journey summaries both point to moments where customers may need clearer reasons to choose TSC.",
-        recommendation: "Pair competitor price observations with customer friction summaries to clarify value messages.",
-        related: "Pricing observations, customer hesitation, value proposition clarity",
-        actions: ["Open competitor analysis", "Review hesitation points", "Test value copy in sandbox"],
-        inputs: { businessImpact: 86, confidence: 78, recency: 82, crossToolMatches: 84, manualPriority: 80 },
-        tags: ["pricing", "messaging", "competitors"]
-      }
-    ];
-
-    const dadJokes = [
-      "I told my backlog a joke. Now it's full of stories.",
-      "Why did the product manager bring a ladder to the meeting? The team wanted to take things to the next level.",
-      "My roadmap asked for directions, so I gave it a milestone."
-    ];
+    const {
+      scoringWeights,
+      toolRegistry,
+      opportunities,
+      recentActivity,
+      dadJokes
+    } = window.TSC_COMMAND_CENTER_DATA;
 
     function scoreOpportunity(opportunity) {
       return Math.round(Object.entries(scoringWeights).reduce((total, [key, weight]) => {
@@ -914,6 +837,26 @@
       `).join("");
 
       document.querySelector("#topScore").textContent = ranked[0]?.score ?? 0;
+    }
+
+    function renderActivity(items) {
+      document.querySelector("#activityList").innerHTML = items.map(item => `
+        <div class="activity-item"><strong>${item.time}</strong>${item.description}</div>
+      `).join("");
+    }
+
+    function renderTools(items) {
+      document.querySelector("#connectedTools").innerHTML = items
+        .sort((a, b) => b.priority - a.priority)
+        .map(tool => `
+          <article class="tool-card">
+            <div>
+              <h4><span class="status"></span>${tool.name}</h4>
+              <p>${tool.description}</p>
+            </div>
+            <a class="button" href="${tool.url}">${tool.ctaLabel}</a>
+          </article>
+        `).join("");
     }
 
     function openOpportunity(id) {
@@ -980,7 +923,9 @@
     });
 
     renderScoreModel();
+    renderTools(toolRegistry);
     renderOpportunities(opportunities);
+    renderActivity(recentActivity);
     renderNote("Prep a business case around checkout navigation before the next roadmap review.");
   </script>
 </body>
