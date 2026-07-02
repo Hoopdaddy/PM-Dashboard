@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TSC Product Command Center</title>
+  <title>PM Opportunity Portal</title>
   <style>
     :root {
       color-scheme: light;
       --ink: #17211b;
-      --muted: #5d6a61;
+      --muted: #617066;
       --line: #d8ded8;
       --paper: #f7f6ef;
       --panel: #ffffff;
@@ -17,131 +17,75 @@
       --gold: #d79a2b;
       --rust: #a34c2f;
       --blue: #315f7f;
-      --shadow: 0 22px 70px rgba(23, 33, 27, .11);
+      --shadow: 0 22px 70px rgba(23, 33, 27, .12);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        linear-gradient(180deg, rgba(247, 246, 239, .88), rgba(247, 246, 239, 1)),
-        radial-gradient(circle at 15% 5%, rgba(215, 154, 43, .18), transparent 32%),
-        radial-gradient(circle at 85% 0%, rgba(47, 107, 63, .16), transparent 30%);
       color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(247, 246, 239, .82), rgba(247, 246, 239, 1)),
+        radial-gradient(circle at 14% 8%, rgba(215, 154, 43, .2), transparent 30%),
+        radial-gradient(circle at 85% 0%, rgba(47, 107, 63, .16), transparent 28%);
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .shell {
-      max-width: 1320px;
+      width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 28px 22px 44px;
+      padding: 34px 0 44px;
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: 22px;
+      align-items: stretch;
       margin-bottom: 22px;
     }
 
-    .brand {
+    .hero-main {
+      min-height: 330px;
+      padding: 30px;
+      background:
+        linear-gradient(135deg, rgba(23, 63, 40, .97), rgba(47, 107, 63, .94)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 1px, transparent 1px 14px);
+      color: white;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(23, 63, 40, .28);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand-row {
       display: flex;
       align-items: center;
       gap: 14px;
-      min-width: 0;
     }
 
     .brand-mark {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       display: grid;
       place-items: center;
-      background: var(--green-deep);
       border: 2px solid var(--gold);
+      background: rgba(255, 255, 255, .08);
       color: white;
       font-weight: 900;
       letter-spacing: .02em;
       flex: 0 0 auto;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.1;
-    }
-
-    .brand p {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .header-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .search {
-      min-width: min(360px, 48vw);
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, .82);
-      height: 42px;
-      padding: 0 14px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .button {
-      border: 1px solid transparent;
-      background: var(--green-deep);
-      color: white;
-      min-height: 42px;
-      padding: 0 14px;
-      font-weight: 750;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .button.secondary {
-      background: white;
-      color: var(--green-deep);
-      border-color: var(--line);
-    }
-
-    .briefing {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      margin-bottom: 22px;
-    }
-
-    .briefing-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
-      min-height: 316px;
-    }
-
-    .briefing-copy {
-      padding: 30px;
-      background:
-        linear-gradient(135deg, rgba(23, 63, 40, .97), rgba(47, 107, 63, .94)),
-        repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 1px, transparent 1px 14px);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 26px;
     }
 
     .eyebrow {
@@ -152,781 +96,323 @@
       color: rgba(255,255,255,.72);
     }
 
-    .briefing h2 {
-      margin: 10px 0 12px;
-      font-size: clamp(32px, 5vw, 58px);
-      line-height: .95;
+    h1 {
+      margin: 14px 0 12px;
+      max-width: 760px;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: .94;
       letter-spacing: 0;
-      max-width: 820px;
     }
 
-    .briefing-lede {
-      max-width: 670px;
+    .hero-main p {
+      margin: 0;
+      max-width: 720px;
       color: rgba(255,255,255,.86);
       font-size: 18px;
       line-height: 1.55;
-      margin: 0;
     }
 
     .motto {
       display: inline-flex;
-      align-items: center;
       width: fit-content;
       border: 1px solid rgba(255,255,255,.24);
       background: rgba(255,255,255,.1);
       padding: 10px 12px;
-      font-weight: 850;
       color: white;
+      font-weight: 850;
     }
 
-    .score-panel {
+    .joke-card {
       padding: 24px;
-      background: #fbfaf4;
-      border-left: 1px solid var(--line);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      justify-content: center;
+      justify-content: space-between;
+      gap: 22px;
     }
 
-    .score-ring {
-      aspect-ratio: 1;
-      width: min(230px, 70%);
-      margin: 0 auto;
-      border-radius: 50%;
-      background: conic-gradient(var(--gold) 0 94%, #e7e2d2 94% 100%);
-      display: grid;
-      place-items: center;
-      box-shadow: inset 0 0 0 14px rgba(255,255,255,.72);
+    .joke-card h2,
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
     }
 
-    .score-ring div {
-      width: 72%;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: white;
-      display: grid;
-      place-items: center;
-      text-align: center;
+    .joke-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .refresh-button {
+      min-height: 42px;
       border: 1px solid var(--line);
-    }
-
-    .score-ring strong {
-      display: block;
-      font-size: 54px;
-      line-height: .9;
+      background: white;
       color: var(--green-deep);
+      font-weight: 850;
+      cursor: pointer;
     }
 
-    .score-ring span {
-      display: block;
-      margin-top: 6px;
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .portal-button {
+      min-height: 230px;
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 45px rgba(23, 33, 27, .08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .portal-button:hover,
+    .portal-button:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(47, 107, 63, .45);
+      box-shadow: 0 24px 58px rgba(23, 33, 27, .14);
+      outline: none;
+    }
+
+    .site-kicker {
       color: var(--muted);
       font-size: 12px;
+      font-weight: 850;
       text-transform: uppercase;
       letter-spacing: .1em;
-      font-weight: 800;
     }
 
-    .summary-box {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 16px;
-      line-height: 1.5;
+    .portal-button h2 {
+      margin: 8px 0 10px;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .portal-button p {
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
+      line-height: 1.5;
     }
 
-    .section-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(320px, .8fr);
-      gap: 22px;
-      align-items: start;
-    }
-
-    .panel {
-      background: rgba(255,255,255,.86);
-      border: 1px solid var(--line);
-      padding: 18px;
-    }
-
-    .panel h3 {
-      margin: 0 0 14px;
-      font-size: 18px;
-    }
-
-    .opportunity-list {
-      display: grid;
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
+      color: var(--green-deep);
+      font-weight: 900;
+    }
+
+    .arrow {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--green-deep);
+      color: white;
+      font-size: 22px;
+      flex: 0 0 auto;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 8px 0 14px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .opportunities {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
     .opportunity {
+      background: rgba(255, 255, 255, .9);
       border: 1px solid var(--line);
-      background: white;
-      padding: 16px;
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 14px;
-      align-items: start;
+      padding: 18px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .opportunity-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .rank {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
       background: var(--green-deep);
       color: white;
       font-weight: 900;
+      flex: 0 0 auto;
     }
 
-    .opportunity h4 {
-      margin: 0 0 6px;
-      font-size: 18px;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0;
-    }
-
-    .pill {
-      border: 1px solid var(--line);
-      background: #f8f7f0;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 750;
+    .impact {
+      border: 1px solid rgba(215,154,43,.38);
+      background: rgba(215,154,43,.1);
+      color: var(--green-deep);
       padding: 6px 8px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
     }
 
-    .pill.impact { color: var(--rust); border-color: rgba(163,76,47,.28); background: rgba(163,76,47,.07); }
-    .pill.confidence { color: var(--green); border-color: rgba(47,107,63,.28); background: rgba(47,107,63,.08); }
+    .opportunity h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      line-height: 1.15;
+    }
 
-    .recommendation {
+    .opportunity p {
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
       line-height: 1.5;
     }
 
-    .score-badge {
-      min-width: 72px;
-      text-align: center;
-      border: 1px solid rgba(215,154,43,.42);
-      background: rgba(215,154,43,.12);
-      padding: 10px 8px;
+    .source-link {
       color: var(--green-deep);
       font-weight: 900;
-    }
-
-    .score-actions {
-      display: grid;
-      gap: 10px;
-      justify-items: stretch;
-    }
-
-    .score-badge span {
-      display: block;
-      font-size: 11px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: 4px;
-    }
-
-    .side-stack {
-      display: grid;
-      gap: 18px;
-    }
-
-    .trend {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-    }
-
-    .trend:last-child { border-bottom: 0; }
-
-    .trend strong { color: var(--ink); }
-    .trend .up { color: var(--green); font-weight: 900; }
-    .trend .down { color: var(--rust); font-weight: 900; }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .action-chip {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 9px 10px;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .connection-flow {
-      display: grid;
-      gap: 10px;
-    }
-
-    .flow-node {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 12px;
-      position: relative;
-    }
-
-    .flow-node:not(:last-child)::after {
-      content: "";
-      width: 2px;
-      height: 10px;
-      background: var(--gold);
-      position: absolute;
-      left: 26px;
-      bottom: -11px;
-    }
-
-    .flow-node small {
-      display: block;
-      color: var(--muted);
-      margin-bottom: 3px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-weight: 850;
-      font-size: 10px;
-    }
-
-    .tools {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .tool-card {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 16px;
-      min-height: 164px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .status {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--green);
-      display: inline-block;
-      margin-right: 7px;
-    }
-
-    .tool-card h4 { margin: 0 0 7px; }
-    .tool-card p { margin: 0; color: var(--muted); line-height: 1.45; font-size: 14px; }
-
-    .dashboard-lower {
-      display: grid;
-      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
-      gap: 22px;
-      margin-top: 22px;
-      align-items: start;
-    }
-
-    .score-model {
-      display: grid;
-      gap: 10px;
-    }
-
-    .weight-row {
-      display: grid;
-      grid-template-columns: 150px minmax(120px, 1fr) 48px;
-      gap: 10px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 750;
-    }
-
-    .meter {
-      height: 10px;
-      background: #ece8da;
-      overflow: hidden;
-    }
-
-    .meter span {
-      display: block;
-      height: 100%;
-      background: var(--gold);
-    }
-
-    .note-form {
-      display: grid;
-      gap: 10px;
-    }
-
-    .note-form textarea {
-      width: 100%;
-      min-height: 94px;
-      resize: vertical;
-      border: 1px solid var(--line);
-      padding: 12px;
-      font: inherit;
-      color: var(--ink);
-      background: white;
-    }
-
-    .note-list,
-    .activity-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .note-item,
-    .activity-item {
-      border: 1px solid var(--line);
-      background: white;
-      padding: 12px;
-      color: var(--muted);
-      line-height: 1.45;
       font-size: 14px;
     }
-
-    .note-item strong,
-    .activity-item strong {
-      display: block;
-      color: var(--ink);
-      margin-bottom: 3px;
-    }
-
-    .drawer {
-      position: fixed;
-      inset: 0;
-      display: none;
-      z-index: 20;
-    }
-
-    .drawer.open {
-      display: block;
-    }
-
-    .drawer-backdrop {
-      position: absolute;
-      inset: 0;
-      background: rgba(23, 33, 27, .42);
-    }
-
-    .drawer-panel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: min(520px, 100%);
-      height: 100%;
-      overflow: auto;
-      background: #fbfaf4;
-      border-left: 1px solid var(--line);
-      box-shadow: -24px 0 70px rgba(23, 33, 27, .18);
-      padding: 24px;
-    }
-
-    .drawer-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .drawer-header h3 {
-      margin: 0;
-      font-size: 26px;
-      line-height: 1.1;
-    }
-
-    .icon-button {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--line);
-      background: white;
-      color: var(--ink);
-      font-size: 22px;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .detail-block {
-      border-top: 1px solid var(--line);
-      padding: 16px 0;
-    }
-
-    .detail-block h4 {
-      margin: 0 0 8px;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: var(--muted);
-    }
-
-    .detail-block p {
-      margin: 0;
-      color: var(--ink);
-      line-height: 1.55;
-    }
-
-    .empty-state {
-      display: none;
-      border: 1px dashed rgba(47,107,63,.42);
-      background: rgba(255,255,255,.82);
-      padding: 22px;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    .empty-state strong {
-      display: block;
-      color: var(--ink);
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    body.empty .opportunity-list,
-    body.empty .side-stack,
-    body.empty .tools,
-    body.empty .dashboard-lower,
-    body.empty .summary-box,
-    body.empty .score-ring { display: none; }
-
-    body.empty .empty-state { display: block; }
 
     @media (max-width: 920px) {
-      .topbar, .briefing-hero, .section-grid, .tools, .dashboard-lower {
+      .hero,
+      .portal-grid,
+      .opportunities {
         grid-template-columns: 1fr;
       }
 
-      .topbar {
-        display: grid;
+      .portal-button {
+        min-height: 190px;
       }
 
-      .header-actions {
-        justify-content: stretch;
-      }
-
-      .search, .button {
-        width: 100%;
-        min-width: 0;
-      }
-
-      .score-panel {
-        border-left: 0;
-        border-top: 1px solid var(--line);
-      }
-
-      .opportunity {
-        grid-template-columns: auto minmax(0, 1fr);
-      }
-
-      .score-badge {
-        grid-column: 1 / -1;
-        text-align: left;
-      }
-
-      .score-actions {
-        grid-column: 1 / -1;
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
   <main class="shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true">TSC</div>
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-main">
         <div>
-          <h1>TSC Product Command Center</h1>
-          <p>Daily opportunity briefing across Product Management tools</p>
-        </div>
-      </div>
-      <div class="header-actions">
-        <input class="search" id="searchInput" type="search" placeholder="Search opportunities, tools, tags, actions">
-        <button class="button secondary" id="emptyToggle" type="button">Toggle Empty State</button>
-      </div>
-    </header>
-
-    <section class="briefing" aria-labelledby="briefingTitle">
-      <div class="briefing-hero">
-        <div class="briefing-copy">
-          <div>
-            <div class="eyebrow">AI Product Briefing</div>
-            <h2 id="briefingTitle">Good morning, Greg.</h2>
-            <p class="briefing-lede">Here's what's worth your attention today. Three high-impact opportunities are showing cross-tool evidence and are ready for focused PM action.</p>
-          </div>
-          <div class="motto">Work Hard. Have Fun. Make Money.</div>
-        </div>
-        <aside class="score-panel" aria-label="Top opportunity score">
-          <div class="score-ring">
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true">PM</div>
             <div>
-              <strong id="topScore">94</strong>
-              <span>Top Score</span>
+              <div class="eyebrow">Product Manager Portal</div>
+              <strong>Three tools. One starting point.</strong>
             </div>
           </div>
-          <p class="summary-box" id="aiSummary">Customer checkout friction continues to appear across multiple analyses. Competitor pricing indicates an opportunity to strengthen value messaging, while sandbox experiments support expanding trailer accessory merchandising.</p>
-          <div class="empty-state">
-            <strong>Great job! Nothing urgent needs attention today.</strong>
-            <span id="dadJoke">Maybe grab another coffee... or finally clean up that backlog.</span>
-          </div>
-        </aside>
+          <h1 id="pageTitle">Today's PM opportunity hub</h1>
+          <p>Jump into the right product tool, review the three highest-value opportunities, and get moving without hunting through separate dashboards.</p>
+        </div>
+        <div class="motto">Work Hard. Have Fun. Make Money.</div>
       </div>
+
+      <aside class="joke-card" aria-labelledby="jokeTitle">
+        <div>
+          <div class="site-kicker">Daily joke</div>
+          <h2 id="jokeTitle">A little backlog relief</h2>
+        </div>
+        <p id="dadJoke"></p>
+        <button class="refresh-button" id="jokeButton" type="button">New Joke</button>
+      </aside>
     </section>
 
-    <div class="section-grid">
-      <section class="panel" aria-labelledby="topOppsTitle">
-        <h3 id="topOppsTitle">Today's Top Opportunities</h3>
-        <div class="opportunity-list" id="opportunityList"></div>
-      </section>
+    <section class="portal-grid" id="siteLinks" aria-label="Product manager tools"></section>
 
-      <aside class="side-stack">
-        <section class="panel" aria-labelledby="trendsTitle">
-          <h3 id="trendsTitle">Opportunity Trends</h3>
-          <div class="trend"><strong>Customer Journey opportunities</strong><span class="up">+18%</span></div>
-          <div class="trend"><strong>Retail opportunities</strong><span class="up">+7%</span></div>
-          <div class="trend"><strong>Sandbox experiments</strong><span class="down">-12%</span></div>
-        </section>
-
-        <section class="panel" aria-labelledby="actionsTitle">
-          <h3 id="actionsTitle">Recommended Next Actions</h3>
-          <div class="actions">
-            <button class="action-chip" type="button">Review checkout journey</button>
-            <button class="action-chip" type="button">Open competitor analysis</button>
-            <button class="action-chip" type="button">Continue pricing experiment</button>
-            <button class="action-chip" type="button">Validate sandbox findings</button>
-            <button class="action-chip" type="button">Create business case</button>
-          </div>
-        </section>
-
-        <section class="panel" aria-labelledby="connectionsTitle">
-          <h3 id="connectionsTitle">Opportunity Connections</h3>
-          <div class="connection-flow">
-            <div class="flow-node"><small>Customer Journey</small>Checkout Abandonment</div>
-            <div class="flow-node"><small>Retail Intelligence</small>Competitor One-Click Checkout</div>
-            <div class="flow-node"><small>CNC Sandbox</small>Prototype Checkout Improvement</div>
-          </div>
-        </section>
-      </aside>
-    </div>
-
-    <section class="tools" id="connectedTools" aria-label="Connected tools"></section>
-
-    <section class="dashboard-lower" aria-label="Planning workspace">
-      <div class="side-stack">
-        <section class="panel" aria-labelledby="scoreModelTitle">
-          <h3 id="scoreModelTitle">Opportunity Score Model</h3>
-          <div class="score-model" id="scoreModel"></div>
-        </section>
-
-        <section class="panel" aria-labelledby="notesTitle">
-          <h3 id="notesTitle">Personal Notes</h3>
-          <form class="note-form" id="noteForm">
-            <textarea id="noteText" placeholder="Capture a decision, idea, or follow-up tied to today's opportunities."></textarea>
-            <button class="button" type="submit">Add Note</button>
-          </form>
-          <div class="note-list" id="noteList" aria-live="polite"></div>
-        </section>
+    <section aria-labelledby="opportunitiesTitle">
+      <div class="section-title">
+        <div>
+          <div class="site-kicker">Top opportunities</div>
+          <h2 id="opportunitiesTitle">What to look at first</h2>
+        </div>
+        <p>One high-signal opportunity from each connected site.</p>
       </div>
-
-      <section class="panel" aria-labelledby="activityTitle">
-        <h3 id="activityTitle">Recent Activity</h3>
-        <div class="activity-list" id="activityList"></div>
-      </section>
+      <div class="opportunities" id="topOpportunities"></div>
     </section>
   </main>
 
-  <aside class="drawer" id="opportunityDrawer" aria-hidden="true">
-    <div class="drawer-backdrop" data-close-drawer></div>
-    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
-      <div class="drawer-header">
-        <div>
-          <div class="eyebrow" style="color: var(--green);">Opportunity Detail</div>
-          <h3 id="drawerTitle"></h3>
-        </div>
-        <button class="icon-button" type="button" data-close-drawer aria-label="Close detail view">x</button>
-      </div>
-      <div class="meta" id="drawerMeta"></div>
-      <div class="detail-block">
-        <h4>Business Context</h4>
-        <p id="drawerContext"></p>
-      </div>
-      <div class="detail-block">
-        <h4>Recommendation</h4>
-        <p id="drawerRecommendation"></p>
-      </div>
-      <div class="detail-block">
-        <h4>Related Opportunities</h4>
-        <p id="drawerRelated"></p>
-      </div>
-      <div class="detail-block">
-        <h4>Suggested Actions</h4>
-        <p id="drawerActions"></p>
-      </div>
-    </div>
-  </aside>
-
   <script src="command-center-data.js"></script>
   <script>
-    const {
-      scoringWeights,
-      toolRegistry,
-      opportunities,
-      recentActivity,
-      dadJokes
-    } = window.TSC_COMMAND_CENTER_DATA;
+    const { sites, topOpportunities, dadJokes } = window.TSC_PORTAL_DATA;
 
-    function scoreOpportunity(opportunity) {
-      return Math.round(Object.entries(scoringWeights).reduce((total, [key, weight]) => {
-        return total + opportunity.inputs[key] * weight;
-      }, 0));
+    function findSite(id) {
+      return sites.find(site => site.id === id);
     }
 
-    function formatScoreLabel(key) {
-      return key.replace(/([A-Z])/g, " $1").replace(/^./, letter => letter.toUpperCase());
-    }
-
-    function renderScoreModel() {
-      document.querySelector("#scoreModel").innerHTML = Object.entries(scoringWeights).map(([key, weight]) => `
-        <div class="weight-row">
-          <span>${formatScoreLabel(key)}</span>
-          <div class="meter" aria-hidden="true"><span style="width: ${weight * 100}%"></span></div>
-          <span>${Math.round(weight * 100)}%</span>
-        </div>
-      `).join("");
-    }
-
-    function renderOpportunities(items) {
-      const list = document.querySelector("#opportunityList");
-      const ranked = [...items]
-        .map(item => ({ ...item, score: scoreOpportunity(item) }))
-        .sort((a, b) => b.score - a.score);
-
-      list.innerHTML = ranked.map((item, index) => `
-        <article class="opportunity" data-search="${[item.title, item.source, item.evidence, item.tags.join(" ")].join(" ").toLowerCase()}">
-          <div class="rank">#${index + 1}</div>
+    function renderSites() {
+      document.querySelector("#siteLinks").innerHTML = sites.map(site => `
+        <a class="portal-button" href="${site.url}" target="_blank" rel="noopener">
           <div>
-            <h4>${item.title}</h4>
-            <div class="meta">
-              <span class="pill">${item.source}</span>
-              <span class="pill">Evidence: ${item.evidence}</span>
-              <span class="pill impact">Impact: ${item.impact}</span>
-              <span class="pill confidence">Confidence: ${item.confidenceLabel}</span>
-            </div>
-            <p class="recommendation">${item.recommendation}</p>
+            <div class="site-kicker">${site.sourceLabel}</div>
+            <h2>${site.name}</h2>
+            <p>${site.description}</p>
           </div>
-          <div class="score-actions">
-            <div class="score-badge"><span>Score</span>${item.score}</div>
-            <button class="button secondary" type="button" data-open-opportunity="${item.id}">Open Opportunity</button>
+          <div class="cta-row">
+            <span>${site.ctaLabel}</span>
+            <span class="arrow" aria-hidden="true">></span>
           </div>
-        </article>
-      `).join("");
-
-      document.querySelector("#topScore").textContent = ranked[0]?.score ?? 0;
-    }
-
-    function renderActivity(items) {
-      document.querySelector("#activityList").innerHTML = items.map(item => `
-        <div class="activity-item"><strong>${item.time}</strong>${item.description}</div>
+        </a>
       `).join("");
     }
 
-    function renderTools(items) {
-      document.querySelector("#connectedTools").innerHTML = items
-        .sort((a, b) => b.priority - a.priority)
-        .map(tool => `
-          <article class="tool-card">
+    function renderOpportunities() {
+      document.querySelector("#topOpportunities").innerHTML = topOpportunities.map(opportunity => {
+        const site = findSite(opportunity.sourceId);
+        return `
+          <article class="opportunity">
             <div>
-              <h4><span class="status"></span>${tool.name}</h4>
-              <p>${tool.description}</p>
+              <div class="opportunity-top">
+                <div class="rank">#${opportunity.rank}</div>
+                <div class="impact">${opportunity.impact} Impact</div>
+              </div>
+              <h3>${opportunity.title}</h3>
+              <p>${opportunity.summary}</p>
             </div>
-            <a class="button" href="${tool.url}">${tool.ctaLabel}</a>
+            <a class="source-link" href="${site.url}" target="_blank" rel="noopener">Open ${site.shortName}</a>
           </article>
-        `).join("");
+        `;
+      }).join("");
     }
 
-    function openOpportunity(id) {
-      const item = opportunities.find(opportunity => opportunity.id === id);
-      if (!item) return;
-      const score = scoreOpportunity(item);
-      document.querySelector("#drawerTitle").textContent = item.title;
-      document.querySelector("#drawerMeta").innerHTML = `
-        <span class="pill">${item.source}</span>
-        <span class="pill">Evidence: ${item.evidence}</span>
-        <span class="pill impact">Impact: ${item.impact}</span>
-        <span class="pill confidence">Confidence: ${item.confidenceLabel}</span>
-        <span class="pill">Score: ${score}</span>
-      `;
-      document.querySelector("#drawerContext").textContent = item.context;
-      document.querySelector("#drawerRecommendation").textContent = item.recommendation;
-      document.querySelector("#drawerRelated").textContent = item.related;
-      document.querySelector("#drawerActions").textContent = item.actions.join(" | ");
-      document.querySelector("#opportunityDrawer").classList.add("open");
-      document.querySelector("#opportunityDrawer").setAttribute("aria-hidden", "false");
+    function showJoke() {
+      const joke = dadJokes[Math.floor(Math.random() * dadJokes.length)];
+      document.querySelector("#dadJoke").textContent = joke;
     }
 
-    function closeDrawer() {
-      document.querySelector("#opportunityDrawer").classList.remove("open");
-      document.querySelector("#opportunityDrawer").setAttribute("aria-hidden", "true");
-    }
-
-    function renderNote(text) {
-      const note = document.createElement("div");
-      note.className = "note-item";
-      note.innerHTML = `<strong>Just now</strong>${text}`;
-      document.querySelector("#noteList").prepend(note);
-    }
-
-    document.querySelector("#searchInput").addEventListener("input", event => {
-      const term = event.target.value.trim().toLowerCase();
-      document.querySelectorAll(".opportunity").forEach(card => {
-        card.style.display = card.dataset.search.includes(term) ? "" : "none";
-      });
-    });
-
-    document.querySelector("#emptyToggle").addEventListener("click", () => {
-      document.body.classList.toggle("empty");
-      document.querySelector("#dadJoke").textContent = dadJokes[Math.floor(Math.random() * dadJokes.length)];
-    });
-
-    document.addEventListener("click", event => {
-      const opener = event.target.closest("[data-open-opportunity]");
-      if (opener) openOpportunity(opener.dataset.openOpportunity);
-      if (event.target.matches("[data-close-drawer]")) closeDrawer();
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") closeDrawer();
-    });
-
-    document.querySelector("#noteForm").addEventListener("submit", event => {
-      event.preventDefault();
-      const field = document.querySelector("#noteText");
-      const text = field.value.trim();
-      if (!text) return;
-      renderNote(text);
-      field.value = "";
-    });
-
-    renderScoreModel();
-    renderTools(toolRegistry);
-    renderOpportunities(opportunities);
-    renderActivity(recentActivity);
-    renderNote("Prep a business case around checkout navigation before the next roadmap review.");
+    document.querySelector("#jokeButton").addEventListener("click", showJoke);
+    renderSites();
+    renderOpportunities();
+    showJoke();
   </script>
 </body>
 </html>

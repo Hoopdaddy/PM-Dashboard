@@ -1,6 +1,6 @@
-# TSC Product Command Center
+# PM Opportunity Portal
 
-Static prototype for the TSC Product Command Center, focused on Feature 11: AI Product Briefing ("Today's Opportunities").
+Entry-point portal for three Product Manager opportunity tools.
 
 ## Current Deliverable
 
@@ -8,24 +8,19 @@ Static prototype for the TSC Product Command Center, focused on Feature 11: AI P
 - `outputs/command-center-data.js`
 - `docs/integration-architecture.md`
 
-## Included So Far
+## What The Portal Does
 
-- AI Product Briefing hero
-- Ranked opportunity cards with modular scoring weights
-- Opportunity detail drawer
-- AI opportunity summary
-- Opportunity trends
-- Recommended next actions
-- Opportunity connections flow
-- Connected tool launch cards
-- Personal notes prototype
-- Recent activity timeline
-- Empty state with workplace-safe dad joke
-- Mock integration registry for future PM tools
-- Modular sample data and configurable scoring weights
+- Provides three large CTA buttons for the connected PM tools.
+- Shows the top three opportunities, one from each source site.
+- Displays a random workplace-safe dad joke.
 
-## Prototype Architecture
+## Connected Sites
 
-The static page reads dashboard data from `outputs/command-center-data.js`.
+- Competitive Analysis Dashboard: `https://retail-comps.vercel.app/`
+- Sandbox Prototyping Tool: `https://cn-c-prototyping-tool.vercel.app/`
+- Weekly KPI Journey Site: `https://pm-customer-journey.vercel.app/`
 
-That file contains the current mock integration contract for connected tools, opportunities, recent activity, scoring weights, and dad jokes. See `docs/integration-architecture.md` for the planned path from static mock data to future API-backed integrations.
+## Data
+
+The static page reads portal content from `outputs/command-center-data.js`.
+

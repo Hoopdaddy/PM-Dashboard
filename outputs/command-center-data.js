@@ -1,103 +1,65 @@
-window.TSC_COMMAND_CENTER_DATA = {
-  scoringWeights: {
-    businessImpact: 0.4,
-    confidence: 0.2,
-    recency: 0.15,
-    crossToolMatches: 0.15,
-    manualPriority: 0.1
-  },
-
-  toolRegistry: [
+window.TSC_PORTAL_DATA = {
+  sites: [
     {
-      id: "customer-journey",
-      name: "Customer Journey Analyzer",
-      url: "https://customerjourney.cardboardmania.com",
-      description: "Recent analyses, pain points, abandonment insights, and friction summaries.",
-      ctaLabel: "Launch Tool",
-      priority: 95,
-      surfaces: ["recentAnalyses", "painPoints", "journeyOpportunities", "abandonmentInsights"]
-    },
-    {
-      id: "retail-intelligence",
-      name: "Retail Competitive Intelligence",
-      url: "https://retailcomps.cardboardmania.com",
-      description: "Competitor observations, feature gaps, pricing signals, and strategic recommendations.",
-      ctaLabel: "Launch Tool",
-      priority: 90,
-      surfaces: ["competitorAnalyses", "pricingObservations", "featureGaps", "recommendations"]
+      id: "retail-comps",
+      name: "Competitive Analysis Dashboard",
+      shortName: "Retail Comps",
+      url: "https://retail-comps.vercel.app/",
+      sourceLabel: "Competitive analysis",
+      description: "Review competitor pricing, assortment gaps, and market opportunities.",
+      ctaLabel: "Open Competitive Dashboard"
     },
     {
       id: "cnc-sandbox",
-      name: "CNC Sandbox",
-      url: "https://cncsandbox.cardboardmania.com",
-      description: "Saved analyses, validation results, experiment findings, and merchandising tests.",
-      ctaLabel: "Launch Tool",
-      priority: 82,
-      surfaces: ["recentExperiments", "savedAnalyses", "validationResults", "sandboxInsights"]
+      name: "Sandbox Prototyping Tool",
+      shortName: "CNC Prototype",
+      url: "https://cn-c-prototyping-tool.vercel.app/",
+      sourceLabel: "Sandbox prototyping",
+      description: "Explore product experiments, prototypes, and validation ideas.",
+      ctaLabel: "Open Sandbox Tool"
+    },
+    {
+      id: "customer-journey",
+      name: "Weekly KPI Journey Site",
+      shortName: "PM Journey",
+      url: "https://pm-customer-journey.vercel.app/",
+      sourceLabel: "Weekly KPI data",
+      description: "Check saved weekly KPI data and product journey signals.",
+      ctaLabel: "Open KPI Journey Site"
     }
   ],
 
-  opportunities: [
+  topOpportunities: [
     {
-      id: "checkout-navigation",
-      title: "Improve Checkout Navigation",
-      source: "Customer Journey Analyzer",
-      sourceToolId: "customer-journey",
-      evidence: "Retail Competitive Intelligence",
-      evidenceToolIds: ["retail-intelligence", "cnc-sandbox"],
+      rank: 1,
+      title: "Improve checkout friction visibility",
+      source: "Weekly KPI Journey Site",
+      sourceId: "customer-journey",
       impact: "High",
-      confidenceLabel: "High",
-      context: "Checkout friction is appearing in customer path analysis and is reinforced by competitor experiences that reduce decision steps at the end of the buying journey.",
-      recommendation: "Review customer journey findings and compare with competitor checkout experiences.",
-      related: "Checkout abandonment, one-click checkout, prototype checkout improvement",
-      actions: ["Review journey findings", "Compare competitor checkout", "Create checkout improvement brief"],
-      inputs: { businessImpact: 98, confidence: 93, recency: 92, crossToolMatches: 96, manualPriority: 88 },
-      tags: ["checkout", "journey", "conversion"]
+      summary: "Use the weekly KPI journey data to identify where conversion or drop-off signals need the fastest product attention."
     },
     {
-      id: "trailer-accessories",
-      title: "Expand Trailer Accessories",
-      source: "Retail Competitive Intelligence",
-      sourceToolId: "retail-intelligence",
-      evidence: "CNC Sandbox",
-      evidenceToolIds: ["cnc-sandbox"],
+      rank: 2,
+      title: "Prioritize competitive pricing gaps",
+      source: "Competitive Analysis Dashboard",
+      sourceId: "retail-comps",
       impact: "High",
-      confidenceLabel: "High",
-      context: "Competitor merchandising and sandbox pricing signals suggest accessory attach opportunities around trailer research and purchase intent.",
-      recommendation: "Review sandbox pricing experiments before prioritization.",
-      related: "Trailer accessory merchandising, pricing experiment, assortment expansion",
-      actions: ["Open pricing experiment", "Validate attach-rate hypothesis", "Draft merchandising test"],
-      inputs: { businessImpact: 94, confidence: 88, recency: 90, crossToolMatches: 90, manualPriority: 91 },
-      tags: ["trailer", "accessories", "pricing"]
+      summary: "Review competitor pricing and positioning to find the clearest near-term merchandising or value-message opportunity."
     },
     {
-      id: "value-messaging",
-      title: "Strengthen Value Messaging",
-      source: "Retail Competitive Intelligence",
-      sourceToolId: "retail-intelligence",
-      evidence: "Customer Journey Analyzer",
-      evidenceToolIds: ["customer-journey"],
+      rank: 3,
+      title: "Prototype the next product test",
+      source: "Sandbox Prototyping Tool",
+      sourceId: "cnc-sandbox",
       impact: "Medium",
-      confidenceLabel: "Medium",
-      context: "Competitor pricing observations and journey summaries both point to moments where customers may need clearer reasons to choose TSC.",
-      recommendation: "Pair competitor price observations with customer friction summaries to clarify value messages.",
-      related: "Pricing observations, customer hesitation, value proposition clarity",
-      actions: ["Open competitor analysis", "Review hesitation points", "Test value copy in sandbox"],
-      inputs: { businessImpact: 86, confidence: 78, recency: 82, crossToolMatches: 84, manualPriority: 80 },
-      tags: ["pricing", "messaging", "competitors"]
+      summary: "Move the best opportunity into a sandbox experiment so the idea can be shaped before roadmap prioritization."
     }
-  ],
-
-  recentActivity: [
-    { time: "8:40 AM", description: "Customer Journey Analyzer identified checkout navigation friction." },
-    { time: "8:22 AM", description: "Retail Competitive Intelligence added competitor one-click checkout evidence." },
-    { time: "Yesterday", description: "CNC Sandbox saved trailer accessory pricing experiment results." },
-    { time: "Monday", description: "Value messaging theme appeared in two connected tools." }
   ],
 
   dadJokes: [
     "I told my backlog a joke. Now it's full of stories.",
     "Why did the product manager bring a ladder to the meeting? The team wanted to take things to the next level.",
-    "My roadmap asked for directions, so I gave it a milestone."
+    "My roadmap asked for directions, so I gave it a milestone.",
+    "The sprint retrospective was so productive, even the action items took notes."
   ]
 };
