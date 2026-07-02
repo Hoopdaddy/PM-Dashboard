@@ -4,6 +4,8 @@ Entry-point portal for three Product Manager opportunity tools.
 
 ## Current Deliverable
 
+- `index.html`
+- `vercel.json`
 - `outputs/tsc-product-command-center.html`
 - `outputs/command-center-data.js`
 - `docs/integration-architecture.md`
@@ -24,3 +26,4 @@ Entry-point portal for three Product Manager opportunity tools.
 
 The static page reads portal content from `outputs/command-center-data.js`.
 
+`index.html` is the Vercel entry point for the deployed site root.

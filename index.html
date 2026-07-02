@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PM Opportunity Portal</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17211b;
+      --muted: #617066;
+      --line: #d8ded8;
+      --paper: #f7f6ef;
+      --panel: #ffffff;
+      --green: #2f6b3f;
+      --green-deep: #173f28;
+      --gold: #d79a2b;
+      --rust: #a34c2f;
+      --blue: #315f7f;
+      --shadow: 0 22px 70px rgba(23, 33, 27, .12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(247, 246, 239, .82), rgba(247, 246, 239, 1)),
+        radial-gradient(circle at 14% 8%, rgba(215, 154, 43, .2), transparent 30%),
+        radial-gradient(circle at 85% 0%, rgba(47, 107, 63, .16), transparent 28%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 34px 0 44px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .hero-main {
+      min-height: 330px;
+      padding: 30px;
+      background:
+        linear-gradient(135deg, rgba(23, 63, 40, .97), rgba(47, 107, 63, .94)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 1px, transparent 1px 14px);
+      color: white;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(23, 63, 40, .28);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--gold);
+      background: rgba(255, 255, 255, .08);
+      color: white;
+      font-weight: 900;
+      letter-spacing: .02em;
+      flex: 0 0 auto;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: 11px;
+      font-weight: 850;
+      color: rgba(255,255,255,.72);
+    }
+
+    h1 {
+      margin: 14px 0 12px;
+      max-width: 760px;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: .94;
+      letter-spacing: 0;
+    }
+
+    .hero-main p {
+      margin: 0;
+      max-width: 720px;
+      color: rgba(255,255,255,.86);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .motto {
+      display: inline-flex;
+      width: fit-content;
+      border: 1px solid rgba(255,255,255,.24);
+      background: rgba(255,255,255,.1);
+      padding: 10px 12px;
+      color: white;
+      font-weight: 850;
+    }
+
+    .joke-card {
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .joke-card h2,
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .joke-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    .refresh-button {
+      min-height: 42px;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--green-deep);
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .portal-button {
+      min-height: 230px;
+      padding: 22px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 45px rgba(23, 33, 27, .08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .portal-button:hover,
+    .portal-button:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(47, 107, 63, .45);
+      box-shadow: 0 24px 58px rgba(23, 33, 27, .14);
+      outline: none;
+    }
+
+    .site-kicker {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .portal-button h2 {
+      margin: 8px 0 10px;
+      font-size: 28px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .portal-button p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--green-deep);
+      font-weight: 900;
+    }
+
+    .arrow {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--green-deep);
+      color: white;
+      font-size: 22px;
+      flex: 0 0 auto;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 8px 0 14px;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .opportunities {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .opportunity {
+      background: rgba(255, 255, 255, .9);
+      border: 1px solid var(--line);
+      padding: 18px;
+      min-height: 210px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .opportunity-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .rank {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      background: var(--green-deep);
+      color: white;
+      font-weight: 900;
+      flex: 0 0 auto;
+    }
+
+    .impact {
+      border: 1px solid rgba(215,154,43,.38);
+      background: rgba(215,154,43,.1);
+      color: var(--green-deep);
+      padding: 6px 8px;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .opportunity h3 {
+      margin: 0 0 8px;
+      font-size: 21px;
+      line-height: 1.15;
+    }
+
+    .opportunity p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .source-link {
+      color: var(--green-deep);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .portal-grid,
+      .opportunities {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-button {
+        min-height: 190px;
+      }
+
+      .section-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-main">
+        <div>
+          <div class="brand-row">
+            <div class="brand-mark" aria-hidden="true">PM</div>
+            <div>
+              <div class="eyebrow">Product Manager Portal</div>
+              <strong>Three tools. One starting point.</strong>
+            </div>
+          </div>
+          <h1 id="pageTitle">Today's PM opportunity hub</h1>
+          <p>Jump into the right product tool, review the three highest-value opportunities, and get moving without hunting through separate dashboards.</p>
+        </div>
+        <div class="motto">Work Hard. Have Fun. Make Money.</div>
+      </div>
+
+      <aside class="joke-card" aria-labelledby="jokeTitle">
+        <div>
+          <div class="site-kicker">Daily joke</div>
+          <h2 id="jokeTitle">A little backlog relief</h2>
+        </div>
+        <p id="dadJoke"></p>
+        <button class="refresh-button" id="jokeButton" type="button">New Joke</button>
+      </aside>
+    </section>
+
+    <section class="portal-grid" id="siteLinks" aria-label="Product manager tools"></section>
+
+    <section aria-labelledby="opportunitiesTitle">
+      <div class="section-title">
+        <div>
+          <div class="site-kicker">Top opportunities</div>
+          <h2 id="opportunitiesTitle">What to look at first</h2>
+        </div>
+        <p>One high-signal opportunity from each connected site.</p>
+      </div>
+      <div class="opportunities" id="topOpportunities"></div>
+    </section>
+  </main>
+
+  <script src="outputs/command-center-data.js"></script>
+  <script>
+    const { sites, topOpportunities, dadJokes } = window.TSC_PORTAL_DATA;
+
+    function findSite(id) {
+      return sites.find(site => site.id === id);
+    }
+
+    function renderSites() {
+      document.querySelector("#siteLinks").innerHTML = sites.map(site => `
+        <a class="portal-button" href="${site.url}" target="_blank" rel="noopener">
+          <div>
+            <div class="site-kicker">${site.sourceLabel}</div>
+            <h2>${site.name}</h2>
+            <p>${site.description}</p>
+          </div>
+          <div class="cta-row">
+            <span>${site.ctaLabel}</span>
+            <span class="arrow" aria-hidden="true">></span>
+          </div>
+        </a>
+      `).join("");
+    }
+
+    function renderOpportunities() {
+      document.querySelector("#topOpportunities").innerHTML = topOpportunities.map(opportunity => {
+        const site = findSite(opportunity.sourceId);
+        return `
+          <article class="opportunity">
+            <div>
+              <div class="opportunity-top">
+                <div class="rank">#${opportunity.rank}</div>
+                <div class="impact">${opportunity.impact} Impact</div>
+              </div>
+              <h3>${opportunity.title}</h3>
+              <p>${opportunity.summary}</p>
+            </div>
+            <a class="source-link" href="${site.url}" target="_blank" rel="noopener">Open ${site.shortName}</a>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function showJoke() {
+      const joke = dadJokes[Math.floor(Math.random() * dadJokes.length)];
+      document.querySelector("#dadJoke").textContent = joke;
+    }
+
+    document.querySelector("#jokeButton").addEventListener("click", showJoke);
+    renderSites();
+    renderOpportunities();
+    showJoke();
+  </script>
+</body>
+</html>
