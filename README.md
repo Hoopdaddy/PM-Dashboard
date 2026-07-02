@@ -1,4 +1,4 @@
-# PM Opportunity Portal
+# Hoop's Product Opportunity Hub
 
 Entry-point portal for three Product Manager opportunity tools.
 

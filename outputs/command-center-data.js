@@ -2,30 +2,30 @@ window.TSC_PORTAL_DATA = {
   sites: [
     {
       id: "retail-comps",
-      name: "Competitive Analysis Dashboard",
+      name: "Competitive Analysis",
       shortName: "Retail Comps",
       url: "https://retail-comps.vercel.app/",
       sourceLabel: "Competitive analysis",
       description: "Review competitor pricing, assortment gaps, and market opportunities.",
-      ctaLabel: "Open Competitive Dashboard"
+      ctaLabel: "Launch Competitive Analysis"
     },
     {
       id: "cnc-sandbox",
-      name: "Sandbox Prototyping Tool",
+      name: "Sandbox Prototyping",
       shortName: "CNC Prototype",
       url: "https://cn-c-prototyping-tool.vercel.app/",
       sourceLabel: "Sandbox prototyping",
       description: "Explore product experiments, prototypes, and validation ideas.",
-      ctaLabel: "Open Sandbox Tool"
+      ctaLabel: "Launch Sandbox Prototyping"
     },
     {
       id: "customer-journey",
-      name: "Weekly KPI Journey Site",
+      name: "Weekly KPI Journey",
       shortName: "PM Journey",
       url: "https://pm-customer-journey.vercel.app/",
       sourceLabel: "Weekly KPI data",
       description: "Check saved weekly KPI data and product journey signals.",
-      ctaLabel: "Open KPI Journey Site"
+      ctaLabel: "Launch KPI Journey"
     }
   ],
 

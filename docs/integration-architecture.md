@@ -1,4 +1,4 @@
-# Portal Architecture
+# Hoop's Product Opportunity Hub Architecture
 
 The current product direction is a lightweight portal, not a full combined dashboard.
 
@@ -34,4 +34,3 @@ A larger combined site becomes worth considering if:
 - Users need cross-tool search, notes, workflow status, or reporting.
 
 Recommended path: keep this portal simple now, then add a small API layer later that pulls top opportunities from the three existing apps. Only merge the apps into one larger site after the data model and workflows are stable.
-
